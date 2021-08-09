@@ -1,5 +1,5 @@
-// Preface: Written for Chrome/Firefox/Safari
-// Fuck IE. All my homies hate IE.
+// Preface: Written for Chrome/Firefox/Safari/Terminal (Node JS)
+// Unfortunately, we don't write this for IE.
 class LogicExecutor {
 	   maxInstructions = 1000;
 	   maxGraphicsBuffer = 256;
@@ -219,11 +219,4 @@ class LogicExecutor {
 	   }
 }
 
-// DEBUG
-
-le = new LogicExecutor();
-le.code = "op add a 2 3\nprint \"Hello from \"\nprint a\nprint \" lines of code!\"\nprintflush message1";
-a=5;
-console.log(b = Date.now());
-while(a>0) { console.log(le.statement(le.code.split("\n")[le.counter]));le.doInstruction();a--}
-console.log(Date.now()-b);
+export {LogicExecutor};

@@ -17,15 +17,18 @@ class MessageBlock {
          * tile.message.ensureCapacity(text.length());
          * tile.message.setLength(0);
         */
+        tile.message = "";
         text = text.trim();
-        count = 0;
-        for(i = 0; i < text.length(); i++){
-            c = text.charAt(i);
+        let count = 0;
+        for(let i = 0; i < text.length; i++){
+            let c = text.charAt(i);
             if(c == '\n'){
-                (count++ <= this.maxNewlines) ? tile.message.append('\n') : 0;
+                if(count++ <= this.maxNewLines){
+                    tile.message += '\n';
+                }
             }
             else{
-                tile.message.append(c);
+                tile.message += c;
             }
         }
     }
@@ -36,3 +39,5 @@ class MessageBuild{
         this.message = "";
     }
 }
+
+export {MessageBlock, MessageBuild};
