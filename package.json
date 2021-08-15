@@ -1,0 +1,13 @@
+{
+  "name": "MlogRuntime",
+  "version": "1.0.0",
+  "description": "",
+  "main": "LogicExecutor.js",
+  "type": "module",
+  "scripts": {
+    "test": "node ./Tests/testFeatures.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
