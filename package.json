@@ -1,13 +1,16 @@
 {
   "name": "MlogRuntime",
   "version": "1.0.0",
-  "description": "",
-  "main": "LogicExecutor.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
     "test": "node ./Tests/testFeatures.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
 }
