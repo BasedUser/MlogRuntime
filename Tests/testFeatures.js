@@ -5,7 +5,7 @@ import * as MessageBlock from '../messageBlock.js';
 import * as SwitchBlock from '../SwitchBlock.js';
 
 // logic executor
-console.log();
+console.log("<LOGIC EXECUTOR>");
 var le = new LogicExecutor.LogicExecutor();
 le.code = "op add a 2 3\nprint \"Hello from \"\nprint a\nprint \" lines of code!\"\nprintflush message1";
 var a = 5;
@@ -19,6 +19,7 @@ while(a>0) {
 console.log(Date.now()-b);
 
 // message block
+console.log("\n<MESSAGE BLOCK>");
 var msgBlock = new MessageBlock.MessageBlock();
 console.log(msgBlock.maxNewLines);
 var msgBuild = new MessageBlock.MessageBuild();
@@ -30,6 +31,7 @@ msgBlock.config(msgBuild, "NewLines limit \n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n1
 console.log(msgBuild.message);
 
 // switch block
+console.log("\n<SWITCH BLOCK>")
 var swBlock = new SwitchBlock.SwitchBlock();
 var swBuild = new SwitchBlock.SwitchBuild();
 console.log(swBuild.config());
