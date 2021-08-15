@@ -2,6 +2,7 @@
 
 import * as LogicExecutor from '../LogicExecutor.js';
 import * as MessageBlock from '../messageBlock.js';
+import * as SwitchBlock from '../SwitchBlock.js';
 
 // logic executor
 console.log();
@@ -27,3 +28,12 @@ msgBlock.config(msgBuild, "220 character limit 012345678901234567890123456789012
 console.log(msgBuild.message);
 msgBlock.config(msgBuild, "NewLines limit \n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27");
 console.log(msgBuild.message);
+
+// switch block
+var swBlock = new SwitchBlock.SwitchBlock();
+var swBuild = new SwitchBlock.SwitchBuild();
+console.log(swBuild.config());
+swBuild.configTapped(swBlock);
+console.log(swBuild.config());
+swBuild.configTapped(swBlock);
+console.log(swBuild.config());
