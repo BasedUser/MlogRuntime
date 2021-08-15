@@ -34,6 +34,9 @@ console.log(msgBuild.message);
 console.log("\n<SWITCH BLOCK>")
 var swBlock = new SwitchBlock.SwitchBlock();
 var swBuild = new SwitchBlock.SwitchBuild();
+if(swBuild.version() > 1){
+    throw new Error("Incompatible switch block version!");
+} else console.log("Compability test success ✔")
 console.log(swBuild.config());
 swBuild.configTapped(swBlock);
 console.log(swBuild.config());
