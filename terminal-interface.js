@@ -31,12 +31,11 @@ var sblock = new SwitchBlock.SwitchBlock();
 var switchblock = new SwitchBlock.SwitchBuild();
 const prompt = promptSync.default({sigint:true});
 var lastLine = "";
-var a;
+var a = 0;
 while(lastLine != "exit"){
     lastLine = prompt("> ");
     switch(lastLine){
         case "run-all":
-            a = (processor.code.match(/'\n'/g) || []).length + 1;
             while(a>0) {
                 console.log(processor.statement(processor.code.split("\n")[processor.counter]));
                 processor.doInstruction();
@@ -49,6 +48,7 @@ while(lastLine != "exit"){
             console.log(processor.printB);
             break;
         default:
+            a += 1;
             processor.code += lastLine + "\n";
             break;
     }
