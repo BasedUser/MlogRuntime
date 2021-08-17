@@ -44,11 +44,23 @@ while(lastLine != "exit"){
                     + (displaySettings.relativeLines ? (`\x1b[32m${relativeLines}\x1b[0m `) : "")
                     + "> ");
     switch(lastLine){
-        case "run-all":
+        case "run":
             targetLine = processor.counter + relativeLines;
             while(processor.counter < targetLine) {
                 console.log(processor.statement(processor.code.split("\n")[processor.counter]));
                 processor.doInstruction();
+            }
+            relativeLines = 0;
+            break;
+        case "run-all":
+            limit = prompt("Instruction limit (leave blank for infinite limit): ");
+            limit = (limit == "") ? true : Number(limit)
+            targetLine = processor.counter + relativeLines;
+            processor.counter = 0;
+            while(processor.counter < targetLine && limit) {
+                console.log(processor.statement(processor.code.split("\n")[processor.counter]));
+                processor.doInstruction();
+                (limit === true) ? 0 : limit--;
             }
             relativeLines = 0;
             break;
