@@ -35,6 +35,9 @@ var displaySettings = {
     totalLines : true,
     relativeLines : true
 }
+var targetLine = 0;
+var limit;
+
 console.log("\x1b[32mWelcome!\x1b[0m\nFormat: \x1b[33mtotal lines \x1b[32mrelative lines \x1b[0m>")
 while(lastLine != "exit"){
     lastLine = prompt((displaySettings.totalLines ? (`\x1b[33m${numLines}\x1b[0m `) : "")
@@ -42,11 +45,22 @@ while(lastLine != "exit"){
                     + "> ");
     switch(lastLine){
         case "run-all":
-            while(relativeLines>0) {
+            targetLine = processor.counter + relativeLines;
+            while(processor.counter < targetLine) {
                 console.log(processor.statement(processor.code.split("\n")[processor.counter]));
                 processor.doInstruction();
-                relativeLines--;
             }
+            relativeLines = 0;
+            break;
+        case "run-limit":
+            limit = Number(prompt("Limit (number of instructions): [   ]\b\b\b\b"))
+            targetLine = processor.counter + relativeLines;
+            while(processor.counter < targetLine && limit) {
+                console.log(processor.statement(processor.code.split("\n")[processor.counter]));
+                processor.doInstruction();
+                limit--;
+            }
+            relativeLines = 0;
             break;
         case "exit":
             break;
