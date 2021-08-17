@@ -12,6 +12,7 @@
  *     Type "run-all" and hit Enter.
  *     To check printB, simply type "check printB" and hit Enter.
  *     If you want to exit, simply type "exit" and hit Enter.
+ *     You can view more at the cheat sheet.
  * 
  * HOW TO RUN:
  *     You can use one of the commands below:
