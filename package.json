@@ -1,10 +1,11 @@
 {
   "name": "MlogRuntime",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "terminal-inteface.js",
   "type": "module",
   "scripts": {
-    "test": "node ./Tests/testFeatures.js"
+    "test": "node ./Tests/testFeatures.js",
+    "emulation": "node ./terminal-interface.js"
   },
   "keywords": [],
   "author": "",

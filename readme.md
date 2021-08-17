@@ -8,12 +8,13 @@ MlogRuntime is an attempt to recreate mindustry logic outside of Mindustry, comp
    ```
    npm install prompt-sync
    ```
-3. If you want to test features, you can run this:
+3. If you want to test features, you can run one of the commands below:
    ```
    node ./Tests/testFeatures.js
-   ```
-   Or, you can use a shorthand, which is defined in [package.json](package.json):
-   ```
    npm test
    ```
-4. If you want to test out **Mindustry Logic** code yourself, unfortunately there is currently no interface to do it for you.
+4. If you want to test out **Mindustry Logic** code yourself, you can use the provided [terminal interface](terminal-interface.js). You can use one of the commands below:
+   ```
+   node ./terminal-interface.js
+   npm run emulation
+   ```
