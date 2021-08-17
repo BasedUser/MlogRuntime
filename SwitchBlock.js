@@ -1,16 +1,12 @@
 class SwitchBlock {
-    constructor(){}
-    configure(entity, b){
-        entity.enabled = b;
-    }
-}
-
-class SwitchBuild {
     constructor(){
         this.enabled = true;
     }
-    configTapped(switchBlock){
-        switchBlock.configure(this,!this.enabled);
+    configure(b){
+        this.enabled = b;
+    }
+    configTapped(){
+        this.configure(!this.enabled);
         return false;
     }
     config(){
@@ -21,4 +17,4 @@ class SwitchBuild {
     }
 }
 
-export {SwitchBlock, SwitchBuild};
+export {SwitchBlock};

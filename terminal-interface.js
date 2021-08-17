@@ -20,26 +20,32 @@
  */
 
 import * as LogicExecutor from './LogicExecutor.js';
-import * as MessageBlock from './messageBlock.js';
-import * as SwitchBlock from './SwitchBlock.js';
+// import * as MessageBlock from './messageBlock.js';
+// import * as SwitchBlock from './SwitchBlock.js';
 import * as promptSync from 'prompt-sync';
 
 var processor = new LogicExecutor.LogicExecutor();
-var mblock = new MessageBlock.MessageBlock();
-var messageblock = new MessageBlock.MessageBuild();
-var sblock = new SwitchBlock.SwitchBlock();
-var switchblock = new SwitchBlock.SwitchBuild();
+// var mblock = new MessageBlock.MessageBlock();
+// var sblock = new SwitchBlock.SwitchBlock();
 const prompt = promptSync.default({sigint:true});
 var lastLine = "";
-var a = 0;
+var relativeLines = 0;
+var numLines = 0;
+var displaySettings = {
+    totalLines : true,
+    relativeLines : true
+}
+console.log("\x1b[32mWelcome!\x1b[0m\nFormat: \x1b[33mtotal lines \x1b[32mrelative lines \x1b[0m>")
 while(lastLine != "exit"){
-    lastLine = prompt("> ");
+    lastLine = prompt((displaySettings.totalLines ? (`\x1b[33m${numLines}\x1b[0m `) : "")
+                    + (displaySettings.relativeLines ? (`\x1b[32m${relativeLines}\x1b[0m `) : "")
+                    + "> ");
     switch(lastLine){
         case "run-all":
-            while(a>0) {
+            while(relativeLines>0) {
                 console.log(processor.statement(processor.code.split("\n")[processor.counter]));
                 processor.doInstruction();
-                a--;
+                relativeLines--;
             }
             break;
         case "exit":
@@ -47,8 +53,24 @@ while(lastLine != "exit"){
         case "check printB":
             console.log(processor.printB);
             break;
+        case "settings":
+            console.log(`\x1b[31mWhat settings do you want to tick?\x1b[33m\n[0] (${displaySettings.totalLines}) Total Lines\n\x1b[32m[1] (${displaySettings.relativeLines}) Relative Lines\x1b[0m`);
+            switch(prompt("[ ]\b\b")){
+                case "0":
+                    displaySettings.totalLines = !displaySettings.totalLines;
+                    console.log("Successfully ticked total lines.")
+                    break;
+                case "1":
+                    displaySettings.relativeLines = !displaySettings.relativeLines;
+                    console.log("Successfully ticked relative lines.")
+                    break;
+                default:
+                    break;
+            }
+            break;
         default:
-            a += 1;
+            relativeLines += 1;
+            numLines += 1;
             processor.code += lastLine + "\n";
             break;
     }

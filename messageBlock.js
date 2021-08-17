@@ -3,34 +3,29 @@
 
 class MessageBlock {
     constructor(){
+        this.message = "";
         this.maxTextLength = 220;
         this.maxNewLines = 24;
     }
-    config(tile, text){
+    config(text){
         if (text.length > this.maxTextLength){
             return; //no. -Anuken
         }
-        tile.message = "";
+        this.message = "";
         text = text.trim();
         let count = 0;
         for(let i = 0; i < text.length; i++){
             let c = text.charAt(i);
             if(c == '\n'){
                 if(count++ <= this.maxNewLines){
-                    tile.message += '\n';
+                    this.message += '\n';
                 }
             }
             else{
-                tile.message += c;
+                this.message += c;
             }
         }
     }
 }
 
-class MessageBuild{
-    constructor(){
-        this.message = "";
-    }
-}
-
-export {MessageBlock, MessageBuild};
+export {MessageBlock};
