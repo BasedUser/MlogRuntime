@@ -32,12 +32,14 @@ var lastLine = "";
 var relativeLines = 0;
 var numLines = 0;
 var displaySettings = {
+    debugInstructions : false,
     totalLines : true,
     relativeLines : true
 }
 var targetLine = 0;
 var limit;
-
+var deconstructed;
+var editLine;
 console.log("\x1b[32mWelcome!\x1b[0m\nFormat: \x1b[33mtotal lines \x1b[32mrelative lines \x1b[0m>")
 while(lastLine != "exit"){
     lastLine = prompt((displaySettings.totalLines ? (`\x1b[33m${numLines}\x1b[0m `) : "")
@@ -47,7 +49,9 @@ while(lastLine != "exit"){
         case "run":
             targetLine = processor.counter + relativeLines;
             while(processor.counter < targetLine) {
-                console.log(processor.statement(processor.code.split("\n")[processor.counter]));
+                if(displaySettings.debugInstructions){
+                    console.log(processor.counter + " | " + processor.statement(processor.code.split("\n")[processor.counter]));
+                }
                 processor.doInstruction();
             }
             relativeLines = 0;
@@ -58,7 +62,9 @@ while(lastLine != "exit"){
             targetLine = processor.counter + relativeLines;
             processor.counter = 0;
             while(processor.counter < targetLine && limit) {
-                console.log(processor.statement(processor.code.split("\n")[processor.counter]));
+                if(displaySettings.debugInstructions){
+                    console.log(processor.counter + " | " + processor.statement(processor.code.split("\n")[processor.counter]));
+                }
                 processor.doInstruction();
                 (limit === true) ? 0 : limit--;
             }
@@ -68,7 +74,9 @@ while(lastLine != "exit"){
             limit = Number(prompt("Limit (number of instructions): [   ]\b\b\b\b"))
             targetLine = processor.counter + relativeLines;
             while(processor.counter < targetLine && limit) {
-                console.log(processor.statement(processor.code.split("\n")[processor.counter]));
+                if(displaySettings.debugInstructions){
+                    console.log(processor.counter + " | " + processor.statement(processor.code.split("\n")[processor.counter]));
+                }
                 processor.doInstruction();
                 limit--;
             }
@@ -80,7 +88,7 @@ while(lastLine != "exit"){
             console.log(processor.printB);
             break;
         case "settings":
-            console.log(`\x1b[31mWhat settings do you want to tick?\x1b[33m\n[0] (${displaySettings.totalLines}) Total Lines\n\x1b[32m[1] (${displaySettings.relativeLines}) Relative Lines\x1b[0m`);
+            console.log(`\x1b[31mWhat settings do you want to tick?\x1b[33m\n[0] (${displaySettings.totalLines}) Total Lines\n\x1b[32m[1] (${displaySettings.relativeLines}) Relative Lines\x1b[0m\n[2] (${displaySettings.debugInstructions}) Debug instructions`);
             switch(prompt("[ ]\b\b")){
                 case "0":
                     displaySettings.totalLines = !displaySettings.totalLines;
@@ -90,8 +98,37 @@ while(lastLine != "exit"){
                     displaySettings.relativeLines = !displaySettings.relativeLines;
                     console.log("Successfully ticked relative lines.")
                     break;
+                case "2":
+                    displaySettings.debugInstructions = !displaySettings.debugInstructions;
+                    console.log("Successfully ticked debug instructions.")
+                    break;
                 default:
                     break;
+            }
+            break;
+        case "full code":
+            console.log(processor.code);
+            break;
+        case "edit line":
+            deconstructed = processor.code.split("\n");
+            console.log("These are the lines of code avaliable.");
+            for(let i = 0; i < deconstructed.length; i++){
+                console.log(`\x1b[33m${i}\x1b[0m | ${deconstructed[i]}`);
+            }
+            editLine = prompt("What line of code do you want to edit? ")
+            while(!isNaN(parseInt(editLine))){
+                editLine = parseInt(editLine);
+                deconstructed[editLine] = prompt(`\x1b[33m${editLine}\x1b[0m >> `);
+                editLine = prompt("What line of code do you want to edit? ")
+            }
+            processor.code = deconstructed.join("\n");
+            break;
+        case "blackhole":
+            if(prompt("\x1b[31mTHIS WILL DELETE ALMOST ALL OF YOUR DATA. ARE YOU SURE? (yes/other) ").toLowerCase() === "yes"){
+                numLines = 0;
+                relativeLines = 0;
+                lastLine = "";
+                processor = new LogicExecutor.LogicExecutor();
             }
             break;
         default:
