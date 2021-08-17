@@ -1,0 +1,17 @@
+{
+  "name": "MlogRuntime",
+  "version": "1.0.0",
+  "main": "terminal-inteface.js",
+  "type": "module",
+  "scripts": {
+    "test": "node ./Tests/testFeatures.js",
+    "emulation": "node ./terminal-interface.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
