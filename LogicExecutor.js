@@ -148,7 +148,7 @@ class LogicExecutor {
 	   }
 	   
 	   getVar(name) {
-	       if(isFinite(name))
+	       if(isFinite(name) || isFinite(parseFloat(name))) // just in case
 	       	    return parseFloat(name);
 	       if(name.charAt(0) === "\"" && name.charAt(name.length-1) === "\"")
 	           return name.slice(1,-1);
