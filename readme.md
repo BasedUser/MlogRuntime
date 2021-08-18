@@ -18,3 +18,4 @@ MlogRuntime is an attempt to recreate mindustry logic outside of Mindustry, comp
    node ./terminal-interface.js
    npm run emulation
    ```
+   Also, use the [Cheat Sheet](terminal-interface-cheat-sheet.md), if you want a list of every custom command.
