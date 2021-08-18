@@ -8,9 +8,7 @@
             "name": "Launch Terminal-based Emulator",
             "program": "${workspaceFolder}/terminal-interface.js",
             "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
+            "skipFiles": [],
             "type": "pwa-node"
         },
 
@@ -18,17 +16,13 @@
             "type": "pwa-node",
             "request": "launch",
             "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
+            "skipFiles": [],
             "program": "${workspaceFolder}\\LogicExecutor.js"
         },{
             "type": "pwa-node",
             "request": "launch",
             "name": "Test Features",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
+            "skipFiles": [],
             "program": "${workspaceFolder}\\Tests\\testFeatures.js"
         }
     ]
