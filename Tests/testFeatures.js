@@ -5,13 +5,23 @@ import * as MessageBlock from '../messageBlock.js';
 import * as SwitchBlock from '../SwitchBlock.js';
 
 // logic executor
-console.log("<LOGIC EXECUTOR>");
+console.log("<LOGIC EXECUTOR (1)>");
 var le = new LogicExecutor.LogicExecutor();
 le.code = "op add a 2 3\nprint \"Hello from \"\nprint a\nprint \" lines of code!\"\nprintflush message1";
 var a = 5;
 var b = Date.now();
 console.log(b);
-while(a>0) {
+while(a < 5) {
+    console.log(le.statement(le.code.split("\n")[le.counter]));
+    le.doInstruction();
+    a--;
+}
+console.log(Date.now()-b);
+console.log("<LOGIC EXECUTOR (2)>")
+le.code = "set x 0\nprint x\nprintflush message1\nop add x x 1\njump 1 lessThan x 20\n\n\n"
+var b = Date.now();
+console.log(b);
+while(le.counter < 5) {
     console.log(le.statement(le.code.split("\n")[le.counter]));
     le.doInstruction();
     a--;

@@ -70,9 +70,9 @@ class LogicExecutor {
     } // credit to atmin@SO
     
     doOp(operator, c, d) {
-        let a = parseFloat(c);
-        let b = parseFloat(d);
-        let numberCmp = isFinite(parseFloat(c)) && isFinite(parseFloat(d));
+        let a = parseFloat(this.getVar(c));
+        let b = parseFloat(this.getVar(d));
+        let numberCmp = isFinite(a) && isFinite(b);
         	let sign, ah, al; // do not implement
         switch(operator) {
         	    case "add": return numberCmp ? a + b : null; // fuck you no "a" + "b"
@@ -198,8 +198,9 @@ class LogicExecutor {
 	           break;
 	           case "jump":
 	               if(tokens.length > 4) {if(this.doOp(tokens[2], tokens[3], tokens[4])) {
-	                   this.counter = tokens[1]-1; // -1 because of the counter++ just later
+	                   this.counter = parseFloat(tokens[1])-1; // -1 because of the counter++ just later
 	               }}
+				   break;
 	           case "end":
 	               this.counter = -1;
 	           break;
