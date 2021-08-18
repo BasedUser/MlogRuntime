@@ -1,5 +1,5 @@
 // Preface: Written for Chrome/Firefox/Safari/Terminal (Node JS)
-// Unfortunately, we don't write this for IE.
+// Fuck IE. All my homies hate IE.
 class LogicExecutor {
 	   maxInstructions = 1000;
 	   maxGraphicsBuffer = 256;
