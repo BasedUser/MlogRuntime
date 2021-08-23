@@ -27,6 +27,7 @@ class LogicExecutor {
 	   counter = 0;
 	   links;// = new Map(); // TODO: bind to cells
 	   unit = null;
+	   printDebug = true;
 	   constructor(ipt) {
 	       this.ipt = ipt;
 	       this.constVars.set("@ipt", ipt);
@@ -209,7 +210,7 @@ class LogicExecutor {
 	               this.printB = this.printB.slice(0,this.maxTextBuffer);
 	           break;
 	           case "printflush":
-	               if(tokens.length > 1)console.log(tokens[1] + ": " + this.printB); // replace this with a bind to links (and putting them in this.vars)
+	               if(this.printDebug){if(tokens.length > 1)console.log(tokens[1] + ": " + this.printB);} // replace this with a bind to links (and putting them in this.vars)
 	               this.printB = "";
 	           break;
 	       }
