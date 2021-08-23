@@ -35,7 +35,8 @@ var numLines = 0;
 var displaySettings = {
     debugInstructions : false,
     totalLines : true,
-    relativeLines : true
+    relativeLines : true,
+    clearOnRun : false
 }
 var targetLine = 0;
 var limit;
@@ -48,6 +49,7 @@ while(lastLine != "exit"){
                     + "> ");
     switch(lastLine){
         case "run":
+            if(displaySettings.clearOnRun){console.clear()}
             targetLine = processor.counter + relativeLines;
             while(processor.counter < targetLine) {
                 if(displaySettings.debugInstructions){
@@ -58,6 +60,7 @@ while(lastLine != "exit"){
             relativeLines = 0;
             break;
         case "run-all":
+            if(displaySettings.clearOnRun){console.clear()}
             limit = prompt("Instruction limit (leave blank for infinite limit): ");
             limit = (limit == "") ? true : Number(limit)
             targetLine = processor.counter + relativeLines;
@@ -72,6 +75,7 @@ while(lastLine != "exit"){
             relativeLines = 0;
             break;
         case "run-limit":
+            if(displaySettings.clearOnRun){console.clear()}
             limit = Number(prompt("Limit (number of instructions): [   ]\b\b\b\b"))
             targetLine = processor.counter + relativeLines;
             while(processor.counter < targetLine && limit) {
@@ -89,7 +93,7 @@ while(lastLine != "exit"){
             console.log(processor.printB);
             break;
         case "settings":
-            console.log(`\x1b[31mWhat settings do you want to tick?\x1b[33m\n[0] (${displaySettings.totalLines}) Total Lines\n\x1b[32m[1] (${displaySettings.relativeLines}) Relative Lines\x1b[0m\n[2] (${displaySettings.debugInstructions}) Debug instructions`);
+            console.log(`\x1b[31mWhat settings do you want to tick?\x1b[33m\n[0] (${displaySettings.totalLines}) Total Lines\n\x1b[32m[1] (${displaySettings.relativeLines}) Relative Lines\x1b[0m\n[2] (${displaySettings.debugInstructions}) Debug instructions\n[3] (${displaySettings.clearOnRun} Clear on run related command)`);
             switch(prompt("[ ]\b\b")){
                 case "0":
                     displaySettings.totalLines = !displaySettings.totalLines;
@@ -102,6 +106,10 @@ while(lastLine != "exit"){
                 case "2":
                     displaySettings.debugInstructions = !displaySettings.debugInstructions;
                     console.log("Successfully ticked debug instructions.")
+                    break;
+                case "3":
+                    displaySettings.clearOnRun = !displaySettings.clearOnRun;
+                    console.log("Successfully ticked clear on run.")
                     break;
                 default:
                     break;
@@ -131,6 +139,9 @@ while(lastLine != "exit"){
                 lastLine = "";
                 processor = new LogicExecutor.LogicExecutor();
             }
+            break;
+        case "clear":
+            console.clear();
             break;
         default:
             relativeLines += 1;
