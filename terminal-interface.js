@@ -42,6 +42,11 @@ var targetLine = 0;
 var limit;
 var deconstructed;
 var editLine;
+
+function tickSetting(sName){
+    displaySettings[sName] = !displaySettings[sName];
+    console.log(`Successfully ticked ${sName}.`)
+}
 console.log("\x1b[32mWelcome!\x1b[0m\nFormat: \x1b[33mtotal lines \x1b[32mrelative lines \x1b[0m>")
 while(lastLine != "exit"){
     lastLine = prompt((displaySettings.totalLines ? (`\x1b[33m${numLines}\x1b[0m `) : "")
@@ -93,26 +98,20 @@ while(lastLine != "exit"){
             console.log(processor.printB);
             break;
         case "settings":
-            console.log(`\x1b[31mWhat settings do you want to tick?\x1b[33m\n[0] (${displaySettings.totalLines}) Total Lines\n\x1b[32m[1] (${displaySettings.relativeLines}) Relative Lines\x1b[0m\n[2] (${displaySettings.debugInstructions}) Debug instructions\n[3] (${displaySettings.clearOnRun} Clear on run related command)`);
-            switch(prompt("[ ]\b\b")){
-                case "0":
-                    displaySettings.totalLines = !displaySettings.totalLines;
-                    console.log("Successfully ticked total lines.")
-                    break;
-                case "1":
-                    displaySettings.relativeLines = !displaySettings.relativeLines;
-                    console.log("Successfully ticked relative lines.")
-                    break;
-                case "2":
-                    displaySettings.debugInstructions = !displaySettings.debugInstructions;
-                    console.log("Successfully ticked debug instructions.")
-                    break;
-                case "3":
-                    displaySettings.clearOnRun = !displaySettings.clearOnRun;
-                    console.log("Successfully ticked clear on run.")
-                    break;
-                default:
-                    break;
+            // construct table, do not touch this mess
+            let table = [];
+            let s;
+            for(let i = 0; i < Object.keys(displaySettings).length; i++){
+                table.push({
+                    Setting : Object.keys(displaySettings)[i],
+                    Activated : displaySettings[Object.keys(displaySettings)[i]]
+                });
+            }
+            
+            console.table(table);
+            let p = parseInt(prompt("Tick a setting: "))
+            if(p < table.length && p >= 0){
+                tickSetting(table[p].Setting)
             }
             break;
         case "full code":
