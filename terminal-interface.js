@@ -143,6 +143,10 @@ while(lastLine != "exit"){
         case "clear":
             console.clear();
             break;
+        //TODO: finish
+        case "import":
+            processor.importCustom(prompt("[|] << (path) "));
+            break;
         default:
             relativeLines += 1;
             numLines += 1;
