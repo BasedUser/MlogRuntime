@@ -229,10 +229,10 @@ class LogicExecutor {
 
 	   //TODO: finish
 	   importCustom(modPath){
-		   let mod = import(modPath);
-		   if('Instruction' in mod){
-				this.customMods.push(mod);
-		   }
+		   import(modPath).then((mod)=>{
+		   		this.customMods.push(mod);
+		   		console.log(this.customMods);
+		   })
 	   }
 }
 
