@@ -229,10 +229,11 @@ class LogicExecutor {
 
 	   //TODO: finish
 	   importCustom(modPath){
-		   import(modPath).then((mod)=>{
-		   		this.customMods.push(mod);
-		   		console.log(this.customMods);
-		   })
+		   (async ()=>{
+			   let mod = await import(modPath);
+			   await this.customMods.push(mod);
+			   console.log(this.customMods);
+		   })()
 	   }
 }
 
