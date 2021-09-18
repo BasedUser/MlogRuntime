@@ -1,6 +1,6 @@
 {
   "name": "MlogRuntime",
-  "version": "0.0.0 rewriting in C++",
+  "version": "0.0.0 rewriting in C",
   "main": "terminal-inteface.js",
   "type": "module",
   "scripts": {
