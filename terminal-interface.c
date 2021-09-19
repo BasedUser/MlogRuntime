@@ -63,7 +63,7 @@ int main(){
             if(displaySettings_state & 0b0001) printf("\e[1;1H\e[2J"); /* clear screen */
             targetLine = processor.counter + relativeLines;
             while(processor.counter < targetLine) {
-                if(displaySettings_state & 0b1000) printf("\e[42m DEBUG: \e[0m%i | %s\n", processor.counter, processor.statement(strtok(processor.code, '\n')[processor.counter]);
+                if(displaySettings_state & 0b1000) printf("\e[42m DEBUG: \e[0m%i | %s\n", processor.counter, processor.statement(strtok(processor.code, '\n')[processor.counter]));
                 processor.doInstruction();
             }
             relativeLines = 0;
@@ -75,7 +75,7 @@ int main(){
             targetLine = processor.counter + relativeLines;
             processor.counter = 0;
             while(processor.counter < targetLine && limit--) {
-                if(displaySettings_state & 0b1000) printf("\e[42m DEBUG: \e[0m%i | %s\n", processor.counter, processor.statement(strtok(processor.code, '\n')[processor.counter]);
+                if(displaySettings_state & 0b1000) printf("\e[42m DEBUG: \e[0m%i | %s\n", processor.counter, processor.statement(strtok(processor.code, '\n')[processor.counter]));
                 processor.doInstruction();
             }
             relativeLines = 0;
@@ -84,7 +84,7 @@ int main(){
             printf("Instruction limit: ");
             scanf("%i", &limit);
             while(processor.counter < targetLine && limit--) {
-                if(displaySettings_state & 0b1000) printf("\e[42m DEBUG: \e[0m%i | %s\n", processor.counter, processor.statement(strtok(processor.code, '\n')[processor.counter]);
+                if(displaySettings_state & 0b1000) printf("\e[42m DEBUG: \e[0m%i | %s\n", processor.counter, processor.statement(strtok(processor.code, '\n')[processor.counter]));
                 processor.doInstruction();
             }
             relativeLines = 0;
@@ -93,8 +93,8 @@ int main(){
             printf("%s\n",processor.printB);
         } else if (strcmp(lastLine, "settings")) {
             // print the table
-            for(let index = 0; index < sizeof(displaySettings_name); ++index){
-                printf("| %-3i | %-17s | %-3i |",index,displaySettings_name[i],!!(displaySettings_state & (4 - index)));
+            for(int index = 0; index < sizeof(displaySettings_name); ++index){
+                printf("| %-3i | %-17s | %-3i |",index,displaySettings_name[index],!!(displaySettings_state & (4 - index)));
             }
             int p;
             printf("Tick a setting: ");
@@ -105,8 +105,8 @@ int main(){
         } else if (strcmp(lastLine, "edit line")) {
             deconstructed = strtok(processor.code, "\n");
             printf("These are the lines of code avaliable.");
-            for(let i = 0; i < sizeof(strtok(processor.code, "\n"));++i){
-                printf("\e[43m%i \e[42m|\e[0m %s\n", i, deconstructed[i])
+            for(int i = 0; i < sizeof(strtok(processor.code, "\n"));++i){
+                printf("\e[43m%i \e[42m|\e[0m %s\n", i, deconstructed[i]);
             }
             //TODO: finish
         }
