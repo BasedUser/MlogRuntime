@@ -6,7 +6,7 @@
 typedef struct MessageBlock {
     unsigned int enabled : 1;
     char message[220] = {'\0'};
-    void (*config)(struct MessageBlock *, char* newMessage) = config;
+    void (*config)(struct MessageBlock *, char* newMessage) = msgConfig;
 } MessageBlock;
 
 void trimMessage(char* out, char* text){
@@ -14,7 +14,8 @@ void trimMessage(char* out, char* text){
 
     int start,end;
     for(start = 0; text[start] == ' '; ++start);
-    for(end = 220; text[end] == ' '; ++end);
+    for(end = 0; text[end] != '\0'; end++);
+    for(end = end; text[end] == ' '; --end);
 
     /* TODO: find a way to optimize this */
     int delta = end - start;
@@ -26,7 +27,7 @@ void trimMessage(char* out, char* text){
     return;
 }
 
-void config(struct MessageBlock * msgblock, char* newMessage){
+void msgConfig(struct MessageBlock * msgblock, char* newMessage){
     const int maxTextLength = 220;
     const int maxNewLines = 24;
     int len;
