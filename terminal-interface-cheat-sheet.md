@@ -35,13 +35,21 @@ Here is the list of almost all custom commands, with description, with examples,
    Example:
    
    ![please forgive me for using powershell](images/example4.png)
+* `clear`
+
+   Clears the console.
+   
+   If you want to clear the console after executing a `run`-related command, go to `settings`.
+   
+   No example provided.
 * `settings`
 
    Shows all display settings. These include:
    
+   * debug instructions (shows all tokens when doing any `run` related command)
    * total lines number
    * relative lines number (lines since the last `run` related command)
-   * debug instructions (shows all tokens when doing any `run` related command)
+   * Clear when any `run` related command is executed
 
    Example:
    

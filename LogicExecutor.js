@@ -27,6 +27,8 @@ class LogicExecutor {
 	   counter = 0;
 	   links;// = new Map(); // TODO: bind to cells
 	   unit = null;
+	   printDebug = true;
+	   customMods = [];
 	   constructor(ipt) {
 	       this.ipt = ipt;
 	       this.constVars.set("@ipt", ipt);
@@ -209,14 +211,29 @@ class LogicExecutor {
 	               this.printB = this.printB.slice(0,this.maxTextBuffer);
 	           break;
 	           case "printflush":
-	               if(tokens.length > 1)console.log(tokens[1] + ": " + this.printB); // replace this with a bind to links (and putting them in this.vars)
+	               if(this.printDebug){if(tokens.length > 1)console.log(tokens[1] + ": " + this.printB);} // replace this with a bind to links (and putting them in this.vars)
 	               this.printB = "";
 	           break;
+			   default:
+				   for(let mod of this.customMods){
+					    let results = mod.Instruction(tokens);
+						if(!(results === null)){break}
+				   }
+			   break;
 	       }
 	       this.counter++;
 	       if(this.counter >= this.code.split("\n").length) {
 	       	    this.counter = 0; // reset
 	       }
+	   }
+
+	   //TODO: finish
+	   importCustom(modPath){
+		   (async ()=>{
+			   let mod = await import(modPath);
+			   await this.customMods.push(mod);
+			   console.log(this.customMods);
+		   })()
 	   }
 }
 

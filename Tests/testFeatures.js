@@ -17,7 +17,7 @@ while(a < 5) {
     a--;
 }
 console.log(Date.now()-b);
-console.log("<LOGIC EXECUTOR (2)>")
+console.log("<LOGIC EXECUTOR (2)>");
 le.code = "set x 0\nprint x\nprintflush message1\nop add x x 1\njump 1 lessThan x 20\n\n\n"
 var b = Date.now();
 console.log(b);
@@ -27,6 +27,11 @@ while(le.counter < 5) {
     a--;
 }
 console.log(Date.now()-b);
+console.log("<LOGIC EXECUTOR (3)>");
+le.counter = 0;
+le.importCustom('./mods/exampleMod.js');
+le.code = "hello\n"
+le.doInstruction();
 
 // message block
 console.log("\n<MESSAGE BLOCK>");
