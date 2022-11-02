@@ -1,5 +1,11 @@
 // Preface: Written for Chrome/Firefox/Safari/Terminal (Node JS)
 // Fuck IE. All my homies hate IE.
+
+// Mindustry Logic uses Degree Measure
+// while most programming languages use Radian Measure
+const deg2rad = Math.PI / 180.0;
+const uint64_max = BigInt("0xffffffffffffffff");
+
 class LogicExecutor {
 	   maxInstructions = 1000;
 	   maxGraphicsBuffer = 256;
@@ -73,7 +79,7 @@ class LogicExecutor {
         let a = parseFloat(this.getVar(c));
         let b = parseFloat(this.getVar(d));
         let numberCmp = isFinite(a) && isFinite(b);
-        	let sign, ah, al; // do not implement
+        let bigA, bigB, result;
         switch(operator) {
         	    case "add": return numberCmp ? a + b : null; // fuck you no "a" + "b"
         	    case "sub": return numberCmp ? a - b : null;
@@ -90,22 +96,65 @@ class LogicExecutor {
         	    case "greaterThan": return numberCmp ? (a > b ? 1 : 0) : null;
         	    case "greaterThanEq": return numberCmp ? (a >= b ? 1 : 0) : null;
         	    case "strictEqual": return numberCmp ? a === b : deepEqual(c, d);
-        	    
-        	    // REPLACE THIS ASAP
-        	    case "shr": //AGDGSGDHSHD
-        	        if(b<0) return this.doOp("shl",a,0-b);
-        	        sign = a < 0 ? -1 : 1;
-        	        al = (a>>>b).toString(2);
-        	        ah = (Math.floor(a / 4294967296)>>>0).toString(2);
-        	        ah = ah.slice(1);
-        	        return parseInt(ah+al,2);
+        	    case "always": return true; // jump instruction used this
+                // Compare
+                case "min": return numberCmp ? Math.min(a, b) : null;
+                case "max": return numberCmp ? Math.max(a, b) : null;
+        	    // BEGIN arithmetic operations
+                case "abs": return Math.abs(a);
+                case "ceil": return Math.ceil(a);
+                case "floor": return Math.floor(a);
+                case "log": return Math.log(a);
+                case "log10": return Math.log(a) / Math.log(10);
+                case "rand": return Math.random() * a;
+                // Math.atan2(y, x)
+                case "angle": return numberCmp ? Math.atan2(b, a) / deg2rad : null;
+                case "len": return numberCmp ? Math.hypot(a, b) : null;
+                case "sin": return Math.sin(a * deg2rad);
+                case "cos": return Math.cos(a * deg2rad);
+                case "tan": return Math.tan(a * deg2rad);
+                case "asin": return Math.asin(a) / deg2rad;
+                case "acos": return Math.acos(a) / deg2rad;
+                case "atan": return Math.atan(a) / deg2rad;
+                // TODO: op noise
+        	    // END arithmetic operations
+
+        	    case "shr":
+                    // just in case
+                    bigA = BigInt(Math.floor(a));
+                    bigB = BigInt(Math.floor(b));
+                    result = BigInt.asIntN(64, bigA >> bigB);
+                    // Yes, that's how Anuke does it, I guess
+                    return parseInt(result.toString());
         	    case "shl":
-        	        if(b<0) return this.doOp("shr",a,0-b);
-        	        sign = a < 0 ? "1" : "0";
-        	        al = (a>>>0).toString(2);
-        	        ah = (Math.floor(a / 4294967296)>>>0).toString(2).slice(0-b);
-        	        return parseInt(ah+al+sign.repeat(b),2);
+                    bigA = BigInt(Math.floor(a));
+                    bigB = BigInt(Math.floor(b));
+                    result = BigInt.asIntN(64, bigA << bigB);
+                    return parseInt(result.toString());
+                // TODO: code smell
+                case "and":
+                    bigA = BigInt(Math.floor(a));
+                    bigB = BigInt(Math.floor(b));
+                    result = BigInt.asIntN(64, bigA & bigB);
+                    return parseInt(result.toString());
+                case "or":
+                    bigA = BigInt(Math.floor(a));
+                    bigB = BigInt(Math.floor(b));
+                    result = BigInt.asIntN(64, bigA | bigB);
+                    return parseInt(result.toString());
+                case "xor":
+                    bigA = BigInt(Math.floor(a));
+                    bigB = BigInt(Math.floor(b));
+                    result = BigInt.asIntN(64, bigA ^ bigB);
+                    return parseInt(result.toString());
+                // Oops, this is inexact
+                case "not":
+                    bigA = BigInt(Math.floor(a));
+                    bigB = BigInt(Math.floor(b));
+                    result = BigInt.asIntN(64, bigA ^ uint64_max);
+                    return parseInt(result.toString());
         	    // I originally planned to put condition and logic ops here as well - but my sanity ran out. DO YOU SEE THESE BITSHIFTS?
+                // NO, I (UMRnInside) will use JavaSctipt BigInt for bitwise operations instead
         	    default:
         	        return null;
         	    break;
