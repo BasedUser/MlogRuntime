@@ -90,7 +90,8 @@ class LogicExecutor {
         	    case "greaterThan": return numberCmp ? (a > b ? 1 : 0) : null;
         	    case "greaterThanEq": return numberCmp ? (a >= b ? 1 : 0) : null;
         	    case "strictEqual": return numberCmp ? a === b : deepEqual(c, d);
-        	    
+        	    case "always": return true; // jump instruction used this
+        	    // TODO add arithmetic operations
         	    // REPLACE THIS ASAP
         	    case "shr": //AGDGSGDHSHD
         	        if(b<0) return this.doOp("shl",a,0-b);
@@ -106,6 +107,8 @@ class LogicExecutor {
         	        ah = (Math.floor(a / 4294967296)>>>0).toString(2).slice(0-b);
         	        return parseInt(ah+al+sign.repeat(b),2);
         	    // I originally planned to put condition and logic ops here as well - but my sanity ran out. DO YOU SEE THESE BITSHIFTS?
+                // TODO: use JavaSctipt BigInt for bitwise operations
+                // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt
         	    default:
         	        return null;
         	    break;
