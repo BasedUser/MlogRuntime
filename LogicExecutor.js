@@ -1,5 +1,9 @@
 // Preface: Written for Chrome/Firefox/Safari/Terminal (Node JS)
 // Fuck IE. All my homies hate IE.
+
+// Mindustry Logic uses Degree Measure
+// while most programming languages use Radian Measure
+const deg2rad = Math.PI / 180.0;
 class LogicExecutor {
 	   maxInstructions = 1000;
 	   maxGraphicsBuffer = 256;
@@ -91,7 +95,28 @@ class LogicExecutor {
         	    case "greaterThanEq": return numberCmp ? (a >= b ? 1 : 0) : null;
         	    case "strictEqual": return numberCmp ? a === b : deepEqual(c, d);
         	    case "always": return true; // jump instruction used this
-        	    // TODO add arithmetic operations
+                // Compare
+                case "min": return numberCmp ? Math.min(a, b) : null;
+                case "max": return numberCmp ? Math.max(a, b) : null;
+        	    // BEGIN arithmetic operations
+                case "abs": return Math.abs(a);
+                case "ceil": return Math.ceil(a);
+                case "floor": return Math.floor(a);
+                case "log": return Math.log(a);
+                case "log10": return Math.log(a) / Math.log(10);
+                case "rand": return Math.random() * a;
+                // Math.atan2(y, x)
+                case "angle": return numberCmp ? Math.atan2(b, a) / deg2rad : null;
+                case "len": return numberCmp ? Math.hypot(a, b) : null;
+                case "sin": return Math.sin(a * deg2rad);
+                case "cos": return Math.cos(a * deg2rad);
+                case "tan": return Math.tan(a * deg2rad);
+                case "asin": return Math.asin(a) / deg2rad;
+                case "acos": return Math.acos(a) / deg2rad;
+                case "atan": return Math.atan(a) / deg2rad;
+                // TODO: op noise
+        	    // END arithmetic operations
+
         	    // REPLACE THIS ASAP
         	    case "shr": //AGDGSGDHSHD
         	        if(b<0) return this.doOp("shl",a,0-b);
